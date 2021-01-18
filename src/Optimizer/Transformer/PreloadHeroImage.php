@@ -6,6 +6,7 @@ use AmpProject\Amp;
 use AmpProject\Attribute;
 use AmpProject\Dom\Document;
 use AmpProject\Dom\Element;
+use AmpProject\Dom\NodeWalker;
 use AmpProject\Extension;
 use AmpProject\Layout;
 use AmpProject\Optimizer\Configuration\PreloadHeroImageConfiguration;
@@ -200,7 +201,7 @@ final class PreloadHeroImage implements Transformer
 
         while ($node !== null) {
             if (! $node instanceof Element) {
-                $node = $this->nextNode($node);
+                $node = NodeWalker::nextNode($node);
                 continue;
             }
 
@@ -214,9 +215,9 @@ final class PreloadHeroImage implements Transformer
             }
             if (Amp::isTemplate($node)) {
                 // Ignore images inside templates.
-                $node = $this->skipNodeAndChildren($node);
+                $node = NodeWalker::skipNodeAndChildren($node);
             } else {
-                $node = $this->nextNode($node);
+                $node = NodeWalker::nextNode($node);
             }
         }
 
@@ -405,7 +406,7 @@ final class PreloadHeroImage implements Transformer
 
             while ($placeholder !== null) {
                 if (! $placeholder instanceof Element) {
-                    $placeholder = $this->nextNode($placeholder);
+                    $placeholder = NodeWalker::nextNode($placeholder);
                     continue;
                 }
 
@@ -419,9 +420,9 @@ final class PreloadHeroImage implements Transformer
 
                 if (Amp::isTemplate($placeholder)) {
                     // Ignore images inside templates.
-                    $placeholder = $this->skipNodeAndChildren($placeholder);
+                    $placeholder = NodeWalker::skipNodeAndChildren($placeholder);
                 } else {
-                    $placeholder = $this->nextNode($placeholder);
+                    $placeholder = NodeWalker::nextNode($placeholder);
                 }
             }
 
@@ -581,47 +582,6 @@ final class PreloadHeroImage implements Transformer
         }
 
         return false;
-    }
-
-    /**
-     * Depth-first walk through the DOM tree.
-     *
-     * @param DOMNode $node Node to start walking from.
-     * @return DOMNode|null Next node, or null if none found.
-     */
-    private function nextNode(DOMNode $node)
-    {
-        // Walk downwards if there are children.
-        if ($node->firstChild) {
-            return $node->firstChild;
-        }
-
-        // Return direct sibling or walk upwards until we find a node with a sibling.
-        while ($node) {
-            if ($node->nextSibling) {
-                return $node->nextSibling;
-            }
-
-            $node = $node->parentNode;
-        }
-
-        // Out of nodes, so we're done.
-        return null;
-    }
-
-    /**
-     * Skip the subtree that is descending from the provided node.
-     *
-     * @param DOMNode $node Node to skip the subtree of.
-     * @return DOMNode|null The appropriate "next" node that will skip the current subtree, null if none found.
-     */
-    private function skipNodeAndChildren(DOMNode $node)
-    {
-        if ($node->nextSibling) {
-            return $node->nextSibling;
-        }
-
-        return $this->skipNodeAndChildren($node->parentNode);
     }
 
     /**
