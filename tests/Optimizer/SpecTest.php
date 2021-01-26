@@ -4,6 +4,7 @@ namespace AmpProject\Optimizer;
 
 use AmpProject\Dom\Document;
 use AmpProject\Optimizer\Configuration\AmpRuntimeCssConfiguration;
+use AmpProject\Optimizer\Transformer\AutoExtensions;
 use AmpProject\Tests\MarkupComparison;
 use AmpProject\Tests\TestCase;
 use AmpProject\Tests\TestMarkup;
@@ -60,6 +61,7 @@ final class SpecTest extends TestCase
     {
         $scenarios = [];
         $suites    = [
+            'AutoExtensions'      => [AutoExtensions::class, self::TRANSFORMER_SPEC_PATH . '/AutoExtensionImporter'],
             'ReorderHead'         => [ReorderHead::class, self::TRANSFORMER_SPEC_PATH . '/ReorderHeadTransformer'],
             'ServerSideRendering' => [ServerSideRendering::class, self::TRANSFORMER_SPEC_PATH . '/ServerSideRendering'],
             'AmpRuntimeCss'       => [
