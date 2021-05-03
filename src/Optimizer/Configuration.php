@@ -3,16 +3,6 @@
 namespace AmpProject\Optimizer;
 
 use AmpProject\Optimizer\Exception\UnknownConfigurationKey;
-use AmpProject\Optimizer\Transformer\AmpBoilerplate;
-use AmpProject\Optimizer\Transformer\AmpBoilerplateErrorHandler;
-use AmpProject\Optimizer\Transformer\AmpRuntimeCss;
-use AmpProject\Optimizer\Transformer\AmpRuntimePreloads;
-use AmpProject\Optimizer\Transformer\GoogleFontsPreconnect;
-use AmpProject\Optimizer\Transformer\PreloadHeroImage;
-use AmpProject\Optimizer\Transformer\ReorderHead;
-use AmpProject\Optimizer\Transformer\RewriteAmpUrls;
-use AmpProject\Optimizer\Transformer\ServerSideRendering;
-use AmpProject\Optimizer\Transformer\TransformedIdentifier;
 
 /**
  * Interface for a configuration object that validates and stores configuration settings.
@@ -44,16 +34,16 @@ interface Configuration
      * @var string[]
      */
     const DEFAULT_TRANSFORMERS = [
-        AmpBoilerplate::class,
-        ServerSideRendering::class,
-        AmpRuntimeCss::class,
-        AmpBoilerplateErrorHandler::class,
-        TransformedIdentifier::class,
-        PreloadHeroImage::class,
-        ResourceHints::class,
-        RewriteAmpUrls::class,
-        ReorderHead::class,
-        OptimizeAmpBind::class,
+        Transformer\AmpBoilerplate::class,
+        Transformer\ServerSideRendering::class,
+        Transformer\AmpRuntimeCss::class,
+        Transformer\AmpBoilerplateErrorHandler::class,
+        Transformer\TransformedIdentifier::class,
+        Transformer\GoogleFontsPreconnect::class,
+        Transformer\PreloadHeroImage::class,
+        Transformer\RewriteAmpUrls::class,
+        Transformer\ReorderHead::class,
+        Transformer\OptimizeAmpBind::class,
     ];
 
     /**
