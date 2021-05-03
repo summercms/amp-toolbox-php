@@ -37,6 +37,7 @@ interface Configuration
         Transformer\AmpBoilerplate::class,
         Transformer\ServerSideRendering::class,
         Transformer\AmpRuntimeCss::class,
+        Transformer\AmpRuntimePreloads::class,
         Transformer\AmpBoilerplateErrorHandler::class,
         Transformer\TransformedIdentifier::class,
         Transformer\GoogleFontsPreconnect::class,
