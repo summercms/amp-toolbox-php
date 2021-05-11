@@ -437,7 +437,7 @@ class DocumentTest extends TestCase
                     </script>
                     </body>
                 </html>
-                '
+                ',
             ],
             'self_closing_tag' => [
                 'utf-8',
@@ -566,7 +566,7 @@ class DocumentTest extends TestCase
             </html>
         ';
 
-        $dom = Document::fromHtml($original);
+        $dom       = Document::fromHtml($original);
         $noscripts = $dom->getElementsByTagName('noscript');
 
         $this->assertEquals(3, $noscripts->length);
@@ -875,41 +875,41 @@ class DocumentTest extends TestCase
         return [
             'single check with existing ID'         => [
                 [
-                    [ $elementFactory, 'my-id', 'some-prefix', 'my-id' ],
+                    [$elementFactory, 'my-id', 'some-prefix', 'my-id'],
                 ],
             ],
 
             'single check without existing ID'      => [
                 [
-                    [ $elementFactory, null, 'some-prefix', 'some-prefix-0' ],
+                    [$elementFactory, null, 'some-prefix', 'some-prefix-0'],
                 ],
             ],
 
             'consecutive checks count upwards'      => [
                 [
-                    [ $elementFactory, null, 'some-prefix', 'some-prefix-0' ],
-                    [ $elementFactory, null, 'some-prefix', 'some-prefix-1' ],
+                    [$elementFactory, null, 'some-prefix', 'some-prefix-0'],
+                    [$elementFactory, null, 'some-prefix', 'some-prefix-1'],
                 ],
             ],
 
             'consecutive checks for same element return same ID' => [
                 [
-                    [ $elementFactory, null, 'some-prefix', 'some-prefix-0' ],
-                    [ null, null, 'some-prefix', 'some-prefix-0' ],
+                    [$elementFactory, null, 'some-prefix', 'some-prefix-0'],
+                    [null, null, 'some-prefix', 'some-prefix-0'],
                 ],
             ],
 
             'mixing prefixes keeps counts separate' => [
                 [
-                    [ $elementFactory, 'my-id', 'some-prefix', 'my-id' ],
-                    [ $elementFactory, null, 'some-prefix', 'some-prefix-0' ],
-                    [ $elementFactory, null, 'some-prefix', 'some-prefix-1' ],
-                    [ $elementFactory, null, 'other-prefix', 'other-prefix-0' ],
-                    [ $elementFactory, null, 'other-prefix', 'other-prefix-1' ],
-                    [ $elementFactory, null, 'some-prefix', 'some-prefix-2' ],
-                    [ $elementFactory, 'another-id', 'some-prefix', 'another-id' ],
-                    [ $elementFactory, null, 'some-prefix', 'some-prefix-3' ],
-                    [ null, null, 'some-prefix', 'some-prefix-3' ],
+                    [$elementFactory, 'my-id', 'some-prefix', 'my-id'],
+                    [$elementFactory, null, 'some-prefix', 'some-prefix-0'],
+                    [$elementFactory, null, 'some-prefix', 'some-prefix-1'],
+                    [$elementFactory, null, 'other-prefix', 'other-prefix-0'],
+                    [$elementFactory, null, 'other-prefix', 'other-prefix-1'],
+                    [$elementFactory, null, 'some-prefix', 'some-prefix-2'],
+                    [$elementFactory, 'another-id', 'some-prefix', 'another-id'],
+                    [$elementFactory, null, 'some-prefix', 'some-prefix-3'],
+                    [null, null, 'some-prefix', 'some-prefix-3'],
                 ],
             ],
         ];
@@ -1006,7 +1006,7 @@ class DocumentTest extends TestCase
      */
     public function testGetRemainingCssSpace()
     {
-        $document = new Document();
+        $document       = new Document();
         $ampCustomStyle = $document->createElement(Tag::STYLE);
         $ampCustomStyle->setAttribute(Attribute::AMP_CUSTOM, null);
         $ampCustomStyle->textContent = str_pad('', Amp::MAX_CSS_BYTE_COUNT - 10, 'X');
@@ -1022,7 +1022,6 @@ class DocumentTest extends TestCase
         $this->assertEquals(5, $document->getRemainingCustomCssSpace());
     }
 
-
     /**
      * Test the Document::addAmpCustomStyle() method without byte limit.
      *
@@ -1030,7 +1029,7 @@ class DocumentTest extends TestCase
      */
     public function testAddAmpCustomStyleWithoutLimit()
     {
-        $document = new Document();
+        $document       = new Document();
         $ampCustomStyle = $document->createElement(Tag::STYLE);
         $ampCustomStyle->setAttribute(Attribute::AMP_CUSTOM, null);
         $ampCustomStyle->textContent = str_pad('', Amp::MAX_CSS_BYTE_COUNT - 28, 'X');

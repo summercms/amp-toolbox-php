@@ -37,7 +37,6 @@ use DOMXPath;
  */
 final class Document extends DOMDocument
 {
-
     /**
      * Default document type to use.
      *
@@ -341,7 +340,7 @@ final class Document extends DOMDocument
      */
     public function __construct($version = '', $encoding = null)
     {
-        $this->originalEncoding = (string)$encoding ?: Encoding::UNKNOWN;
+        $this->originalEncoding = (string) $encoding ?: Encoding::UNKNOWN;
         parent::__construct($version ?: '1.0', Encoding::AMP);
         $this->registerNodeClass(DOMElement::class, Element::class);
         $this->options = Option::DEFAULTS;
@@ -768,19 +767,19 @@ final class Document extends DOMDocument
              * @var Element
              */
             $oldDocumentElement = $this->removeChild($this->documentElement);
-            $html = $this->createElement(Tag::HTML);
+            $html               = $this->createElement(Tag::HTML);
             $this->insertBefore($html, $nextSibling);
 
             if ($oldDocumentElement->nodeName === Tag::HEAD) {
                 $head = $oldDocumentElement;
             } else {
                 $head = $this->getElementsByTagName(Tag::HEAD)->item(0);
-                if (!$head) {
+                if (! $head) {
                     $head = $this->createElement(Tag::HEAD);
                 }
             }
 
-            if (!$head instanceof Element) {
+            if (! $head instanceof Element) {
                 throw FailedToRetrieveRequiredDomElement::forHeadElement($head);
             }
 
@@ -791,12 +790,12 @@ final class Document extends DOMDocument
                 $body = $oldDocumentElement;
             } else {
                 $body = $this->getElementsByTagName(Tag::BODY)->item(0);
-                if (!$body) {
+                if (! $body) {
                     $body = $this->createElement(Tag::BODY);
                 }
             }
 
-            if (!$body instanceof Element) {
+            if (! $body instanceof Element) {
                 throw FailedToRetrieveRequiredDomElement::forBodyElement($body);
             }
 
@@ -808,13 +807,13 @@ final class Document extends DOMDocument
             }
         } else {
             $head = $this->getElementsByTagName(Tag::HEAD)->item(0);
-            if (!$head) {
+            if (! $head) {
                 $this->head = $this->createElement(Tag::HEAD);
                 $this->documentElement->insertBefore($this->head, $this->documentElement->firstChild);
             }
 
             $body = $this->getElementsByTagName(Tag::BODY)->item(0);
-            if (!$body) {
+            if (! $body) {
                 $this->body = $this->createElement(Tag::BODY);
                 $this->documentElement->appendChild($this->body);
             }
@@ -928,7 +927,6 @@ final class Document extends DOMDocument
      * @param string $html HTML string to adapt.
      * @return string Adapted HTML string.
      * @see restoreSelfClosingTags() Reciprocal function.
-     *
      */
     private function replaceSelfClosingTags($html)
     {
@@ -949,7 +947,6 @@ final class Document extends DOMDocument
      * @param string $html HTML string to adapt.
      * @return string Adapted HTML string.
      * @see replaceSelfClosingTags Reciprocal function.
-     *
      */
     private function restoreSelfClosingTags($html)
     {
@@ -1023,15 +1020,15 @@ final class Document extends DOMDocument
     {
         foreach ($this->noscriptPlaceholderComments as $id => $noscriptHtmlFragment) {
             $placeholderElement = $this->getElementById($id);
-            if (!$placeholderElement || !$placeholderElement->parentNode) {
+            if (! $placeholderElement || ! $placeholderElement->parentNode) {
                 continue;
             }
             $noscriptFragmentDocument = self::fromHtmlFragment($noscriptHtmlFragment);
-            if (!$noscriptFragmentDocument) {
+            if (! $noscriptFragmentDocument) {
                 continue;
             }
             $exportBody = $noscriptFragmentDocument->getElementsByTagName(Tag::BODY)->item(0);
-            if (!$exportBody) {
+            if (! $exportBody) {
                 continue;
             }
 
@@ -1487,7 +1484,6 @@ final class Document extends DOMDocument
      * @param string $html HTML string to adapt.
      * @return string Adapted HTML string.
      * @see replaceMustacheTemplateTokens() Reciprocal function.
-     *
      */
     private function restoreMustacheTemplateTokens($html)
     {
@@ -1646,7 +1642,6 @@ final class Document extends DOMDocument
      * @param string $html HTML string to adapt.
      * @return string Adapted HTML string.
      * @see restoreDoctypeNode() Reciprocal function.
-     *
      */
     private function secureDoctypeNode($html)
     {
@@ -1665,7 +1660,6 @@ final class Document extends DOMDocument
      * @param string $html HTML string to adapt.
      * @return string Adapted HTML string.
      * @see secureDoctypeNode() Reciprocal function.
-     *
      */
     private function restoreDoctypeNode($html)
     {
@@ -1803,7 +1797,7 @@ final class Document extends DOMDocument
         } else {
             $this->indexCounter[$prefix] = 0;
         }
-        $uniqueId = (string)$this->indexCounter[$prefix];
+        $uniqueId = (string) $this->indexCounter[$prefix];
         if ($prefix) {
             $uniqueId = "{$prefix}-{$uniqueId}";
         }
@@ -1854,7 +1848,7 @@ final class Document extends DOMDocument
     public function addAmpCustomStyle($style)
     {
         $style         = trim($style, CssRule::CSS_TRIM_CHARACTERS);
-        $existingStyle = (string)$this->ampCustomStyle->textContent;
+        $existingStyle = (string) $this->ampCustomStyle->textContent;
 
         // Inject new styles before any potential source map annotation comment like: /*# sourceURL=amp-custom.css */.
         // If not present, then just put it at the end of the stylesheet. This isn't strictly required, but putting the
@@ -1900,7 +1894,7 @@ final class Document extends DOMDocument
 
         return max(
             0,
-            $this->cssMaxByteCountEnforced - (int)$this->ampCustomStyleByteCount - (int)$this->inlineStyleByteCount
+            $this->cssMaxByteCountEnforced - (int) $this->ampCustomStyleByteCount - (int) $this->inlineStyleByteCount
         );
     }
 
@@ -1925,7 +1919,7 @@ final class Document extends DOMDocument
                     $html = $this->getElementsByTagName(Tag::HTML)->item(0);
                 }
 
-                if (!$html instanceof Element) {
+                if (! $html instanceof Element) {
                     throw FailedToRetrieveRequiredDomElement::forHtmlElement($html);
                 }
 
@@ -1940,7 +1934,7 @@ final class Document extends DOMDocument
                     $head = $this->getElementsByTagName(Tag::HEAD)->item(0);
                 }
 
-                if (!$head instanceof Element) {
+                if (! $head instanceof Element) {
                     throw FailedToRetrieveRequiredDomElement::forHeadElement($head);
                 }
 
@@ -1955,7 +1949,7 @@ final class Document extends DOMDocument
                     $body = $this->getElementsByTagName(Tag::BODY)->item(0);
                 }
 
-                if (!$body instanceof Element) {
+                if (! $body instanceof Element) {
                     throw FailedToRetrieveRequiredDomElement::forBodyElement($body);
                 }
 
@@ -1982,7 +1976,7 @@ final class Document extends DOMDocument
 
             case 'ampCustomStyle':
                 $ampCustomStyle = $this->xpath->query(self::XPATH_AMP_CUSTOM_STYLE_QUERY, $this->head)->item(0);
-                if (!$ampCustomStyle instanceof Element) {
+                if (! $ampCustomStyle instanceof Element) {
                     $ampCustomStyle = $this->createElement(Tag::STYLE);
                     $ampCustomStyle->appendChild($this->createAttribute(Attribute::AMP_CUSTOM));
                     $this->head->appendChild($ampCustomStyle);
@@ -1993,25 +1987,25 @@ final class Document extends DOMDocument
                 return $this->ampCustomStyle;
 
             case 'ampCustomStyleByteCount':
-                if (!isset($this->ampCustomStyle)) {
+                if (! isset($this->ampCustomStyle)) {
                     $ampCustomStyle = $this->xpath->query(self::XPATH_AMP_CUSTOM_STYLE_QUERY, $this->head)->item(0);
-                    if (!$ampCustomStyle instanceof Element) {
+                    if (! $ampCustomStyle instanceof Element) {
                         return 0;
                     } else {
                         $this->ampCustomStyle = $ampCustomStyle;
                     }
                 }
 
-                if (!isset($this->ampCustomStyleByteCount)) {
+                if (! isset($this->ampCustomStyleByteCount)) {
                     $this->ampCustomStyleByteCount = strlen($this->ampCustomStyle->textContent);
                 }
 
                 return $this->ampCustomStyleByteCount;
 
             case 'inlineStyleByteCount':
-                if (!isset($this->inlineStyleByteCount)) {
+                if (! isset($this->inlineStyleByteCount)) {
                     $this->inlineStyleByteCount = 0;
-                    $attributes = $this->xpath->query(self::XPATH_INLINE_STYLE_ATTRIBUTES_QUERY, $this->body);
+                    $attributes                 = $this->xpath->query(self::XPATH_INLINE_STYLE_ATTRIBUTES_QUERY, $this->body);
                     foreach ($attributes as $attribute) {
                         $this->inlineStyleByteCount += strlen($attribute->textContent);
                     }
@@ -2051,7 +2045,7 @@ final class Document extends DOMDocument
     {
         $element = parent::createElement($name, $value);
 
-        if (!$element instanceof Element) {
+        if (! $element instanceof Element) {
             return false;
         }
 
@@ -2075,7 +2069,7 @@ final class Document extends DOMDocument
     {
         $element = parent::createElement($name, $value);
 
-        if (!$element instanceof Element) {
+        if (! $element instanceof Element) {
             return false;
         }
 
@@ -2125,7 +2119,6 @@ final class Document extends DOMDocument
             1,
             $count
         );
-
 
         // If no <head> was found, we look for the <html> tag instead.
         if ($count < 1) {
