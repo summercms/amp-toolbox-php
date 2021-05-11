@@ -119,5 +119,6 @@ interface Attribute
     const DATA_HERO                        = 'data-hero';
     const DATA_HERO_CANDIDATE              = 'data-hero-candidate';
 
-    const CROSSORIGIN_ANONYMOUS = 'anonymous';
+    const CROSSORIGIN_ANONYMOUS       = 'anonymous';
+    const CROSSORIGIN_USE_CREDENTIALS = 'use-credentials';
 }
